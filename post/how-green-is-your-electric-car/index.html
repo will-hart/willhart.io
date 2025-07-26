@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Coal powered cars? | willhart.io</title>
+
+
+  <link rel="icon" type="image/x-icon" href="/icons/icon_light_32x32.png">
+
+  
+<meta name="description" content="A back of the envelope investigation into the emissions savings from converting to electric cars in the UK. Posted on https://willhart.io" />
+
+
+  <link rel="stylesheet" href="https://willhart.io/global.css?h=bdb6acc2d5bcbce6639a" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap" rel="stylesheet">
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+  integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"
+  crossorigin="anonymous"
+/>
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"
+  crossorigin="anonymous"
+></script>
+
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+  integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+  crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {delimiters: [
+    {left: '$$', right: '$$', display: true},
+    {left: '$', right: '$', display: false},]});"
+></script>
+
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "310f93cab66a42c5a328f246cc053025"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+
+  <!-- Light/Dark theme toggling -->
+  <script type="text/javascript">
+    const storageKey = "websiteTheme";
+
+    // apply theme once we have a DOM
+    document.addEventListener("DOMContentLoaded", () => {
+      applyTheme();
+    })
+
+    // a function that toggles between light and dark theme
+    const toggleTheme = () => {
+      localStorage.setItem(storageKey, localStorage.getItem(storageKey) === "d" ? "l" : "d" );
+      applyTheme();
+    }
+
+    // a function that actually applies the theme
+    const applyTheme = () => {
+      const useDarkTheme = localStorage.getItem(storageKey) === "d";
+      document.getElementsByTagName("html")[0].className = useDarkTheme ? "dark" : "";
+      document.getElementById("theme-toggle").textContent = useDarkTheme ? "🔆" : "🌑";
+    }
+  </script>
+
+  <script type="speculationrules">
+  {
+    "prerender": [
+      { "where": { "selector_matches": "a" } }
+    ]
+  }
+  </script></head>
+
+<body>
+  <nav id="header">
+    <a href="/" aria-label="Website Logo and Link to Home Page">
+      <div id="logo" >&nbsp;</div>
+    </a>
+    <span>
+      <button type="button" id="theme-toggle" aria-label="Toggle Theme" onClick="toggleTheme()">🌑</button>
+      <a class="header-item" href="/post">POSTS</a>
+      <a class="header-item" href="/tag">TAGS</a>
+      <span class="header-item hide-when-slim">|</span>
+      <a class="header-item hide-when-slim" href="/tag/projects">PROJECTS</a>
+      <a class="header-item hide-when-slim" href="/tag/gamedev">GAMEDEV</a>
+      <a class="header-item hide-when-slim" href="/tag/electronics">ELECTRONICS</a>
+    </span>
+  </nav>
+
+  
+
+<div class="container col mb mt">
+  <h1>Coal powered cars?</h1>
+  <div class="col txtsm mb">
+    <span>Posted by Will Hart on 2015-05-09</span>
+    <div>
+      <span>See also:</span>
+      
+      <a class="txtsm mr" href="https://willhart.io/tag/random/">#random</a>
+      
+    </div>
+  </div>
+</div>
+
+<article class="container col mblg"><p><img src="https://images.unsplash.com/photo-1458007683879-47560d7e33c3?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ&amp;s=2f0feee29d02fd90ef634c47a0426671" alt="How green is your electric car?" /></p>
+<p>You often see “zero emissions” plastered over the backs of electric cars, as if
+the energy to run them is magically pulled from the ether. I’m curious about
+some of the practical considerations for a large scale adoption of electricity
+as a form of energy for road transportation, and what sort of overall impact
+this may have on environmental issues.</p>
+<p>Let’s try to calculate (on the back of an envelope!) the impact of an imaginary,
+immediate and total conversion from petrol and diesel to electric cars.</p>
+<h2 id="scale-of-emissions">Scale of emissions</h2>
+<p>Based on statistics released by the UK Climate Change Commission, in 2012 the UK
+released about 600 mega tonnes of CO2 (MtCO2) into the atmosphere. Approximately
+110Mt was related to surface transport of all kinds [Note 1], including rail,
+passenger cars, vans, and freight in trucks/lorries/HGVs. Private passenger
+transport accounts for around 60% of transport related emissions [Note 2] or
+around 11% of total CO2 emissions [Note 3]. By comparison, electricity
+generation emitted around 160MT of CO2 in the same year, or in other words about
+two and a half times as much as passenger transport [Note 1].</p>
+<h2 id="electric-supply">Electric supply</h2>
+<p>The scale of emissions above suggests that if we were to suddenly replace all
+the petrol and diesel cars in the UK with electric vehicles then we could cut
+total UK emissions by about 65MtCO2 or 11%. However, in reality this is not the
+case as most energy for electric cars comes from the grid…</p>
+<p>In England in 2011, almost 80% of that energy is generated by burning fossil
+fuels (the figure is less in other countries within the UK) [Note 4]. Does
+moving emissions from an internal combustion engine to a fossil fuel power plant
+reduce total emissions at all? Let’s do the rough numbers…</p>
+<h2 id="calculating-the-emissions">Calculating the emissions</h2>
+<h3 id="energy-in-fuels">Energy in fuels</h3>
+<p>Not all fuels are created equal. The reason why petrol and diesel have become so
+ubiquitous is that it gives you very good bang for buck - it lets you carry
+around a lot of energy in a small tank. For each kg of petrol you burn, you can
+theoretically “liberate” 44MJ of energy. For coal and natural gas this value is
+around 35MJ [Note 5]. Therefore to produce 44MJ of energy, you could burn 1kg of
+“gasoline”, or $\frac{44}{35}=1.25kg$ of natural gas or coal.</p>
+<h3 id="efficiency-of-power-sources">Efficiency of power sources</h3>
+<p>To make this a back of the envelope calculation, we’ll have to ignore
+distribution and transmission efficiency and just concentrate on generation
+efficiency. A typical internal combustion engine is between 25 and 45%
+efficient. This means that to generate 44MJ of energy at the fly wheel (i.e.
+before the mechanical losses from the transmission) then we don’t need to burn
+1kg of fuel, but actually between $\frac{1}{0.45}=2.2kg$ and
+$\frac{1}{0.25}=4.0kg$ of fuel.</p>
+<p>A power plant may have higher efficiency in the range of 40-60%, meaning we have
+to burn between $\frac{1.25}{0.4}=2.1kg$ and $\frac{1.25}{0.6}=3.1kg$ of fuel
+[Note 6]. To be fair to petrol engines we should factor in the electric car
+motor efficiency, which is less than 100%, but luckily much higher than for
+petrol engines. We will assume a generous 90% efficiency, meaning that to get
+44MJ of energy at the electric motor “flywheel”, we have to burn between 2.3 and
+3.4kg of fuel at the power plant.</p>
+<h3 id="co2-emitted-by-fuel">CO2 emitted by fuel</h3>
+<p>Finally, we need to work out how much CO2 is emitted by burning each of these
+fuel types. A simplified chemical reaction for petrol combustion is</p>
+<p>$$ C_8 H_{18} + 12.5(O_2 + 3.76N_2) \rightarrow 8CO_2 + 9H_2O + 47N_2$$</p>
+<p>These units are in mole, but using the atomic weight of the molecules we can
+determine from this reaction that for every kg of petrol we burn, we produce
+around 3kg of C02. [Note 7]</p>
+<p>This reaction assumes complete combustion and ignores CO or NOx emissions</p>
+<p>Similar values can be worked out for coal and natural gas, but for simplicity
+lets use a table which gives kg of CO2 per kg of fuel of 3.3kg/kg for petrol,
+2.8 for natural gas and 2.3 for coal [Note 8].</p>
+<p>Therefore to produce 44MJ of energy from petrol, we would have to release
+between $2.2kg \times 3.3kg/kg = 7.3kg$ and $4kg\times3.3kg/kg = 13.2kg$ of CO2,
+depending on the fuel type. (Diesel is typically more efficient at the cost of
+higher nitrous oxides, but we’ll assume everything is petrol for now).</p>
+<p>Using England’s split of 20.8% of power supplied by low emission sources, 29.2%
+by coal and 50% by natural gas [Note 4], we can calculate the equivalent
+emissions for power plant generation at between</p>
+<p>$$0.29 \times 2.3kg \times 2.3kg/kg + 0.5 \times 2.3kg \times 2.8kg/kg = 4.8kg$$</p>
+<p>and</p>
+<p>$$0.29 \times 3.4kg \times 2.3kg/kg + 0.5 \times 3.4kg \times 2.8kg/kg = 7.0kg$$</p>
+<p>Comparing the two reveals that burning fossil fuels as opposed to fuel can
+result in emissions being reduced to 53-66% of their petrol counterparts.</p>
+<h2 id="now-what">Now what?</h2>
+<p>In short, this pretty basic analysis tells us that if we took the 65 MTCO2e from
+passenger transport and converted it all to 2011 England electric power, we
+would reduce CO2 emissions to between 35 and 44 MTCO2e for passenger transport
+under current power generation technology. The reduction would equate to around
+5% of total emissions.</p>
+<p>In reality, the impact of even total adoption of electric vehicles on CO2
+emissions would be small to negligible under current power generation
+technologies. Whilst
+<a rel="noopener nofollow noreferrer" target="_blank" href="http://www.tudelft.nl/en/current/latest-news/article/detail/studenten-breken-wereldrecord-0-100-acceleratie-1/">electric</a>
+<a rel="noopener nofollow noreferrer" target="_blank" href="https://vimeo.com/69173273">vehicles</a>
+<a rel="noopener nofollow noreferrer" target="_blank" href="http://www.teslamotors.com/en_GB/models">are</a>
+<a rel="noopener nofollow noreferrer" target="_blank" href="http://www.fiaformulae.com/">cool</a>, a far more pressing need is to develop and
+commercialise new, cleaner ways of generating electrical energy.</p>
+<h2 id="notes-and-assumptions">Notes and assumptions</h2>
+<h3 id="what-is-missing">What is missing?</h3>
+<p>Energy analysis is by definition complex, and calculation CO2 emissions and fuel
+economy is even more difficult given the very wide range of factors at play
+[Note 9].</p>
+<p>This analysis is based on operating emissions only - that is the emissions
+required to supply the energy to move a vehicle from point A to point B. Factors
+like hybrids, regenerative braking, the higher mass of electric vehicles and
+potential changes to driver habits are ignored, as are the total lifetime
+emissions of vehicles from digging ore out of the ground to end of life
+vehicles.</p>
+<p>For instance, this analysis completely ignores the exotic metals electric motors
+require or the problem of disposing of vast quantities of end of life electric
+vehicle batteries.</p>
+<h2 id="references">References</h2>
+<p>[<strong>NOTE 1</strong>] CO2 emissions by sector [http://www.theccc.org.uk/charts-data/ukemissions-by-sector/]</p>
+<p>[<strong>NOTE 2</strong>] Transport emissions by type, p23 of [https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/228897/7682.pdf]</p>
+<p>[<strong>Note 3</strong>] $\frac{60% \times 110MTCO_2e}{600 MTCO_2e} = 11%$</p>
+<p>[<strong>Note 4</strong>] UK sources of electricity, 2010 and 2011, [https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/65841/7345-elec-gen-2008-2011-et-article.pdf]</p>
+<p>[<strong>Note 5</strong>] Calorific values of some fuels [http://en.wikipedia.org/wiki/Heat_of_combustion#Heat_of_combustion_tables]</p>
+<p>[<strong>Note 6</strong>] See typical power plant losses and efficiency on p24 [https://www.iea.org/ciab/papers/power_generation_from_coal.pdf]</p>
+<p>[<strong>Note 7</strong>] As 1kmol of $C_8 H_18$ weighs $8\times 12 + 18 \times 1 = 114kg$ and produces 8kmol of $CO_2$  weighing $8\times(12 + 2\times 16) = 352kg$</p>
+<p>[<strong>Note 8</strong>] Specific CO2 Emission table, [http://www.engineeringtoolbox.com/co2-emission-fuels-d_1085.html]</p>
+<p>[<strong>NOTE 9</strong>] Limitations of transport CO2 emissions calculations [https://www.abtslogistics.co.uk/green-logistics-resources/d82cc048-4b92-4c2a-a014-af1eea7d76d0_CO2%20Emissions%20from%20Freight%20Transport%20-%20An%20Analysis%20of%20UK%20Data.pdf]</p>
+</article>
+
+<div class="container col">
+  <h2>Comments</h2>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="will-hart/will-hart.github.io"
+    issue-term="title"
+    label="post-comment"
+    theme="github-light"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
+</div>
+
+  <footer id="footer" class="padded">
+      This website was hand-made using Zola and Tera.
+      All text and images are available under CC0 1.0 Universal and code under MIT unless otherwise specified. See <a href="https://github.com/will-hart/willhart.io/blob/main/LICENSE.md">LICENSE.md</a> for more.
+  </footer>
+</body>
+
+</html>
